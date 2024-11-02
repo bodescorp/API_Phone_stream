@@ -1,0 +1,112 @@
+<h1>Lista de Telefones</h1>
+
+<a href="/views/phone/register">
+  <button>Adicionar Novo Telefone</button>
+</a>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Número</th>
+    <th>Modelo</th>
+    <th>Marca</th>
+    <th>IMEI</th>
+    <th>Status</th>
+    <th>Ação</th>
+  </tr>
+  {{#each phones}}
+  <tr>
+    <td>{{this._id}}</td>
+    <td>{{this.phone_number}}</td>
+    <td>{{this.phone_model}}</td>
+    <td>{{this.brand}}</td>
+    <td>{{this.imei}}</td>
+    <td>{{this.status}}</td>
+    <td>
+      <button onclick="openModal('{{this._id}}')">Marcar como Roubado</button>
+      <!-- Link para Página de Atualização do Telefone -->
+      <a href="/views/phone/edit/{{this._id}}" style="display:inline-block;">
+        <button>Editar</button>
+      </a>
+
+      <!-- Form para Deletar o Telefone -->
+      <form action="/views/phone/delete/{{this._id}}" method="POST" style="display:inline-block;">
+        <input type="hidden" name="_method" value="DELETE">
+        <button type="submit" onclick="return confirm('Tem certeza que deseja deletar este telefone?')">Deletar</button>
+      </form>
+    </td>
+  </tr>
+  {{/each}}
+</table>
+
+<!-- Modal -->
+<div id="stolenModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h2>Inserir Localização do Telefone</h2>
+    <form id="stolenForm" action="" method="POST">
+      <label for="latitude">Latitude:</label>
+      <input type="number" step="any" name="point[coordinates][1]" id="latitude" required>
+
+      <label for="longitude">Longitude:</label>
+      <input type="number" step="any" name="point[coordinates][0]" id="longitude" required>
+
+      <input type="hidden" id="phoneId" name="phoneId" value="">
+      <button type="submit">Atualizar</button>
+    </form>
+  </div>
+</div>
+
+<!-- Modal CSS -->
+<style>
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%;
+  }
+
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+</style>
+<!-- Modal JavaScript -->
+<script>
+  function openModal(phoneId) {
+    document.getElementById('stolenModal').style.display = 'block';
+    document.getElementById('phoneId').value = phoneId;
+    document.getElementById('stolenForm').action = `/views/phone/stolen/${phoneId}`;
+  }
+
+  function closeModal() {
+    document.getElementById('stolenModal').style.display = 'none';
+  }
+
+  window.onclick = function (event) {
+    const modal = document.getElementById('stolenModal');
+    if (event.target == modal) {
+      modal.style.display = 'none';
+    }
+  }
+</script>

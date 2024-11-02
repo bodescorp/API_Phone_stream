@@ -1,0 +1,25 @@
+<h1>Atualizar Telefone</h1>
+<form action="/views/phone/edit/{{phone._id}}" method="POST">
+  <input type="hidden" name="_method" value="PATCH">
+
+  <label for="phone_number">Número do Telefone:</label>
+  <input type="text" id="phone_number" name="phone_number" value="{{phone.phone_number}}" required><br>
+
+  <label for="phone_model">Modelo do Telefone:</label>
+  <input type="text" id="phone_model" name="phone_model" value="{{phone.phone_model}}" required><br>
+
+  <label for="brand">Marca do Telefone:</label>
+  <input type="text" id="brand" name="brand" value="{{phone.brand}}" required><br>
+
+  <label for="imei">IMEI:</label>
+  <input type="text" id="imei" name="imei" value="{{phone.imei}}" required><br>
+
+  <label for="status">Status:</label>
+  <select id="status" name="status" disabled>
+    <option value="Ativo" {{#if (eq phone.status 'Ativo')}}selected{{/if}}>Ativo</option>
+    <option value="Roubado" {{#if (eq phone.status 'Roubado')}}selected{{/if}}>Roubado</option>
+    <option value="Desativado" {{#if (eq phone.status 'Desativado')}}selected{{/if}}>Desativado</option>
+  </select><br>
+
+  <button type="submit">Atualizar</button>
+</form>

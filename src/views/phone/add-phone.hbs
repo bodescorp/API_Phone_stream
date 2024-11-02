@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Phone</title>
+</head>
+<body>
+  <h1>Add a New Phone</h1>
+  <form action="/views/phone/register" method="POST">
+    <div>
+      <label for="number">Phone Number:</label>
+      <input type="text" id="number" name="phone_number" required>
+    </div><div>
+      <label for="number">Phone Model:</label>
+      <input type="text" id="number" name="phone_model" required>
+    </div>
+    <div>
+      <label for="imei">IMEI:</label>
+      <input type="text" id="imei" name="imei" required>
+    </div>
+    <div>
+      <label for="brand">Brand:</label>
+      <input type="text" id="brand" name="brand" required>
+    </div>
+    <div>
+      <label for="model">Model:</label>
+      <input type="text" id="model" name="model" required>
+    </div>
+    <div>
+      <button type="submit">Add Phone</button>
+    </div>
+  </form>
+  <a href="/views/phone/list">Back to Phone List</a>
+</body>
+</html>
